@@ -44,15 +44,24 @@ O ecossistema raft-suite é uma solução da DP6 que visa suprir as necessidades
 # Setup penguin-datalayer-collect
 
 ## 1. Requisitos para utilização
+A solução está disponível tando para GCP quanto para AWS, portanto a instalação das dependências e produtos utilizados poderá mudar de acordo com a cloud utilizada.
 
-### 1.1 Produtos do GCP
+### 1.1.1 Produtos do GCP
 
 - Cloud Storage
 - Cloud Function
 - Bigquery
 - Service account
 
-### 1.2 Dependências ambiente local
+### 1.1.2 Produtos da AWS
+
+- Amazon S3
+- Lambda Function
+- Amazon Athena
+- AWS Glue
+- Amazon API Gateway
+
+### 1.2.1 Dependências ambiente local GCP
 
 1. [Google Cloud SDK ](https://cloud.google.com/sdk/docs/install?hl=pt-br)
 2. Pacotes zip, unzip e curl
@@ -63,6 +72,13 @@ O ecossistema raft-suite é uma solução da DP6 que visa suprir as necessidades
 7. Importante o usuário que executar o script do terraform precisa ter a permissão de owner no projeto do GCP.
 
 _Observação:_ Utilizando o ambiente no [Google Cloud Shell](https://cloud.google.com/shell/docs) não é necessário fazer os **1**, **2**, **4** e **5**
+
+### 1.2.2 Dependências ambiente local AWS
+
+1. [AWS CLI](https://aws.amazon.com/cli/)
+2. Criar um _User_ com credenciais do tipo _Access Key_ com as permissões: AmazonS3FullAccess, AWSLambda_FullAccess, AmazonAthenaFullAccess, AWSGlueServiceRole, AmazonAPIGatewayAdministrator e IAMFullAccess 
+3. Configurar o acesso a partir do usuário criado localmente executando `aws configure`
+4. Instalar o [Terraform](https://www.terraform.io/downloads.html)
 
 ### 1.3 Ludwig gerador de Schemas
 
@@ -80,7 +96,14 @@ Para fazer deploy no GCP usando o Terraform, o utilize o shell script terraform_
 
 ```console
 cd penguin-datalayer-collect
-sh terraform_deploy.sh
+sh terraform_deploy.sh gcp
+```
+
+Para fazer deploy na AWS usando o Terraform, o utilize o shell script terraform_deploy, usando o comando abaixo
+
+```console
+cd penguin-datalayer-collect
+sh terraform_deploy.sh aws
 ```
 
 ## 3. Configurando a tag no GTM

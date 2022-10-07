@@ -1,2 +1,2 @@
 #!/bin/bash
-cd terraform && terraform init && terraform validate
+cd terraform/$1 && terraform init && terraform validate
